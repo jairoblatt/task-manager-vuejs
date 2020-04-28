@@ -1,20 +1,15 @@
 <template>
-  <div id="app">
-    <Main></Main>
-  </div>
+  <v-app id="inspire">
+    <main-template/>
+  </v-app>
 </template>
 
 <script>
-import Main from './page/Main'
-export default {
-  name: 'App',
-  components: {
-    Main
+import MainTemplate from './page/Main'
+  export default {
+      name:'App',
+      components:{
+        MainTemplate
+      }
   }
-}
 </script>
-
-<style>
-@import 'assets/style.css';
-@import ''
-</style>

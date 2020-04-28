@@ -1,24 +1,22 @@
 <template>
-  <span>
-    <div class="dashboard-wrapper">
-      <div class="dashboard-ecommerce">
-        <div class="container-fluid dashboard-content">
-          <btn-create></btn-create>
-          <task-create></task-create>
-        </div>
-      </div>
-    </div>
-  </span>
+     <v-container fluid>
+      <v-row>
+        <v-col cols="12" sm="12" md="12">
+          <btn-create/>
+          <form-task-create/>
+        </v-col>
+      </v-row>
+     </v-container>
 </template>
 
 <script>
 import BtnCreate from '@/components/BtnCreate'
-import TaskCreate from '@/components/TaskCreate'
+import FormTaskCreate from '@/components/FormTaskCreate'
 export default {
     name:'Main',
     components: {
-        BtnCreate,
-        TaskCreate
+      BtnCreate,
+      FormTaskCreate
     }
 };
 </script>

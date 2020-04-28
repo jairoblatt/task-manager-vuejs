@@ -2,13 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import VModal from 'vue-js-modal'
-
-Vue.use(VModal)
+import vuetify from '@/plugins/vuetify'
 
 Vue.config.productionTip = false
 
 
 new Vue({
+  vuetify,
   render: h => h(App),
 }).$mount('#app')
