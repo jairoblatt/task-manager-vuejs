@@ -1,20 +1,24 @@
 <template>
-     <v-container fluid>
-      <v-row>
-        <v-col cols="12" sm="12" md="12">
-          <form-task-create/>
-        </v-col>
-      </v-row>
-     </v-container>
+  <v-container fluid >
+    <v-row>
+      <btn-create/>
+      <form-task-create />
+      <card-task />
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import FormTaskCreate from '@/components/FormTaskCreate'
+import BtnCreate from "@/components/BtnCreate";
+import FormTaskCreate from "@/components/FormTaskCreate";
+import CardTask from "@/components/CardTask";
 export default {
-    name:'Main',
-    components: {
-      FormTaskCreate
-    }
+  name: "Main",
+  components: {
+    FormTaskCreate,
+    BtnCreate,
+    CardTask
+  }
 };
 </script>
 

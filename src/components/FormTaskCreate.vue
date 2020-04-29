@@ -1,100 +1,97 @@
 <template>
-<span>
-  <btn-create/>
-  <v-dialog v-model="dialog" persistent max-width="600px">
-    <template v-slot:activator="{ on }">
-      <v-btn color="primary" dark >New Taslk</v-btn>
-    </template>
-    <v-card>
-      <v-card-title>
-        <span class="headline">New Task</span>
-      </v-card-title>
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col cols="12" sm="12" md="12">
-              <v-form ref="form">
-                <v-text-field v-model="form.title" :counter="max" :rules="rules" label="Title"></v-text-field>
-                <v-textarea outlined name="input-7-4" label="Description"></v-textarea>
-                <v-chip
-                  v-if="chip"
-                  class="ma-2"
-                  close
-                  color="indigo"
-                  text-color="white"
-                  @click:close="chip = !chip"
-                >Success</v-chip>
-              </v-form>
-            </v-col>
-          </v-row>
-        </v-container>
-        <small>*indicates required field</small>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-        <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+  <span>
+    <v-dialog v-model="dialog" persistent max-width="600px" color="grey darken-4">
+      <v-card outlined>
+        <v-card-title>
+            <span class="headline">New Task</span>
+           <v-spacer></v-spacer>
+          <v-btn  icon @click="closeDialog()">
+              <v-icon >mdi-close</v-icon>
+        </v-btn>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="12" md="12">
+                <v-form ref="form">
+                  <v-text-field
+                    v-model="form.title"
+                    outlined
+                    color="#651FFF"
+                    :counter="maxTitle"
+                    :rules="rules"
+                    label="Title"
+                  ></v-text-field>
+                  <v-textarea
+                    v-if="form.title"
+                    outlined
+                    color="#651FFF"
+                    :counter="maxDescription"
+                    :rules="rules"
+                    name="input-7-4"
+                    label="Description"
+                  ></v-textarea>
+                </v-form>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="#651FFF" outlined @click="dialog = false"><v-icon>mdi-plus</v-icon>Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </span>
 </template>
 
 <script>
-import BtnCreate from './BtnCreate'
+import { mapGetters } from 'vuex'
 export default {
   name: "FormTaskCreate",
-  components:{
-    BtnCreate
-  },
   data: () => {
     return {
-      dialog:true,
+      maxTitle: 80,
+      maxDescription: 200,
       rules: "",
-      max: 250,
       allowSpaces: false,
+      chip: true,
       form: {
         title: "",
         description: "",
         group: ""
-      },
-      chip: true
+      }
     };
   },
-  computed: {
-    rules() {
-      const rules = [];
+  computed: mapGetters({
+    dialog: "modal/getDialog"
+  }),
+    // rules() {
+    //   const rules = [];
+    //   if (this.maxTitle) {
+    //     const rule = v =>
+    //       (v || "").length <= this.maxTitle ||
+    //       `A maximum of ${this.maxTitle} characters is allowed`;
+    //     rules.push(rule);
+    //   }
+    //   if (this.maxDescription) {
+    //     const rule = v =>
+    //       (v || "").length <= this.maxDescription ||
+    //       `A maximum of ${this.maxDescription} characters is allowed`;
+    //     rules.push(rule);
+    //   }
+    //   return rules;
+    // },
 
-      if (this.max) {
-        const rule = v =>
-          (v || "").length <= this.max ||
-          `A maximum of ${this.max} characters is allowed`;
-
-        rules.push(rule);
-      }
-
-      if (!this.allowSpaces) {
-        const rule = v => (v || "").indexOf(" ") < 0 || "No spaces are allowed";
-
-        rules.push(rule);
-      }
-
-      if (this.match) {
-        const rule = v => (!!v && v) === this.match || "Values do not match";
-
-        rules.push(rule);
-      }
-
-      return rules;
-    }
-  },
   watch: {
-    max: "validateField",
-    form: "validateField"
+    max: "validateField"
   },
   methods: {
     validateField() {
       this.$refs.form.validate();
+    },
+    closeDialog(){
+      this.$store.commit('modal/setDialog', false )
     }
   }
 };
