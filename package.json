@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "vue": "^2.5.2",
-    "vue-js-modal": "^2.0.0-rc.3",
+    "vue-grid-layout": "^2.3.7",
     "vuetify": "^2.2.25",
     "vuex": "^3.3.0"
   },

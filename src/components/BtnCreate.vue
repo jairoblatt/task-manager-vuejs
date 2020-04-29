@@ -1,6 +1,6 @@
 <template v-slot:activator="{ on }">
 
-  <v-btn color="pink" large dark fixed bottom right fab @click="openModal()">
+  <v-btn color="#651FFF" large dark fixed bottom right fab @click="openModal()">
     <v-icon>mdi-plus</v-icon>
   </v-btn>
 

@@ -1,6 +1,6 @@
 export const state = {
 
-    createTaskForm:true
+    createTaskForm:false
 
 }
 
@@ -15,6 +15,7 @@ export const getters = {
 
 
 export const mutations = {
+    
     setDialog (state,payload){
         state.createTaskForm = payload
     }

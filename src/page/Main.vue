@@ -18,9 +18,9 @@ export default {
     FormTaskCreate,
     BtnCreate,
     CardTask
+  },
+  created(){
+    this.$store.dispatch('task/getTask');
   }
 };
 </script>
-
-<style>
-</style>

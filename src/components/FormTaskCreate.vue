@@ -15,19 +15,16 @@
               <v-col cols="12" sm="12" md="12">
                 <v-form ref="form">
                   <v-text-field
-                    v-model="form.title"
+                    v-model="title"
                     outlined
                     color="#651FFF"
-                    :counter="maxTitle"
-                    :rules="rules"
                     label="Title"
                   ></v-text-field>
                   <v-textarea
-                    v-if="form.title"
+                    v-show="title"
+                    v-model="description"
                     outlined
                     color="#651FFF"
-                    :counter="maxDescription"
-                    :rules="rules"
                     name="input-7-4"
                     label="Description"
                   ></v-textarea>
@@ -38,7 +35,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="#651FFF" outlined @click="dialog = false"><v-icon>mdi-plus</v-icon>Save</v-btn>
+          <v-btn color="#651FFF" outlined @click="saveTask"><v-icon>mdi-plus</v-icon>Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -47,55 +44,51 @@
 
 <script>
 import { mapGetters } from 'vuex'
+
 export default {
   name: "FormTaskCreate",
+
   data: () => {
     return {
       maxTitle: 80,
       maxDescription: 200,
+
       rules: "",
       allowSpaces: false,
       chip: true,
-      form: {
-        title: "",
-        description: "",
-        group: ""
-      }
+
+      title: "",
+      description: ""
     };
   },
-  computed: mapGetters({
-    dialog: "modal/getDialog"
-  }),
-    // rules() {
-    //   const rules = [];
-    //   if (this.maxTitle) {
-    //     const rule = v =>
-    //       (v || "").length <= this.maxTitle ||
-    //       `A maximum of ${this.maxTitle} characters is allowed`;
-    //     rules.push(rule);
-    //   }
-    //   if (this.maxDescription) {
-    //     const rule = v =>
-    //       (v || "").length <= this.maxDescription ||
-    //       `A maximum of ${this.maxDescription} characters is allowed`;
-    //     rules.push(rule);
-    //   }
-    //   return rules;
-    // },
-
-  watch: {
-    max: "validateField"
-  },
   methods: {
+    
     validateField() {
       this.$refs.form.validate();
     },
+
     closeDialog(){
       this.$store.commit('modal/setDialog', false )
+    },
+
+    saveTask(){
+
+      let x = Math.floor(Math.random() * 9) + 1;
+      let y = Math.floor(Math.random() * 9) + 1;
+
+      const form = {
+        title:this.title,
+        description:this.description,
+        x:x,
+        y:y
+      }
+     
+      console.log(form)
+      this.$store.commit('task/saveTask', form)
     }
-  }
+  },
+  
+  computed: mapGetters({ dialog: "modal/getDialog" })
+  
 };
 </script>
-
-<style>
-</style>
