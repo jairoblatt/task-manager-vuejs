@@ -2,9 +2,9 @@
   <v-container fluid >
     <v-row>
       <v-col cols="12" md="12">
-      <btn-create/>
-      <form-task-create />
-      <card-task/>
+        <btn-create/>
+        <form-task-create />
+        <grid-card/>
       </v-col>
     </v-row>
   </v-container>
@@ -13,13 +13,13 @@
 <script>
 import BtnCreate from "@/components/BtnCreate";
 import FormTaskCreate from "@/components/FormTaskCreate";
-import CardTask from "@/components/CardTask";
+import GridCard from "@/components/GridCard";
 export default {
   name: "Main",
   components: {
     FormTaskCreate,
     BtnCreate,
-    CardTask
+    GridCard
   },
   created(){
     this.$store.dispatch('task/getTask');
