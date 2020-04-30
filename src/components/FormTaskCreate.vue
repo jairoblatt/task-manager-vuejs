@@ -72,23 +72,48 @@ export default {
     },
 
     saveTask(){
-
-      let x = Math.floor(Math.random() * 9) + 1;
-      let y = Math.floor(Math.random() * 9) + 1;
-
+    const item = this.tasks[this.tasks.length -1]
+    const lastItem = {}
+    
+    if(item != undefined){
+          lastItem.i = item.i,
+          lastItem.x = item.x,
+          lastItem.y = item.y
+      if(lastItem.x >= 10){
+          lastItem.x = 0
+          lastItem.y++
+          lastItem.i++
+      }else{
+          lastItem.x = lastItem.x + 2
+          lastItem.i++
+      }
+    }else {
+      lastItem.i = 0
+      lastItem.x = 0 
+      lastItem.y = 0
+    }
+  
       const form = {
         title:this.title,
         description:this.description,
-        x:x,
-        y:y
+        w:2,
+        h:2,
+        y:lastItem.y,
+        x:lastItem.x,
+        i:lastItem.i
       }
      
       console.log(form)
       this.$store.commit('task/saveTask', form)
-    }
+     }
   },
   
-  computed: mapGetters({ dialog: "modal/getDialog" })
+  computed: mapGetters({ 
+
+   dialog: "modal/getDialog",
+   tasks:"task/getTask" 
+
+   })
   
 };
 </script>

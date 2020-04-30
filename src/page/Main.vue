@@ -1,9 +1,11 @@
 <template>
   <v-container fluid >
     <v-row>
+      <v-col cols="12" md="12">
       <btn-create/>
       <form-task-create />
-      <card-task />
+      <card-task/>
+      </v-col>
     </v-row>
   </v-container>
 </template>

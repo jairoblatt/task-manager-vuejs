@@ -17,6 +17,13 @@ export const mutations = {
 
     async saveTask(context, payload){
         await Op.saveTask(payload)
+        state.tasks.push(payload)
+    },
+
+    async deleteTask(context,data){
+         await Op.deleteTask(data)
+        const index = state.tasks.indexOf(data)
+        state.tasks.splice(index,1)
     }
 
 }

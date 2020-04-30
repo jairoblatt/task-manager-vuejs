@@ -65,7 +65,24 @@ export default {
 
 		});
 	
-	}
+	},
+
+	async deleteTask(data) {
+
+		let db = await this.getDb();
+
+		return new Promise(resolve => {
+
+			let trans = db.transaction(['task'],'readwrite');
+			trans.oncomplete = () => {
+				resolve();
+			};
+
+			let store = trans.objectStore('task');
+
+			store.delete(data.id);
+		});	
+	},
     
 
 
