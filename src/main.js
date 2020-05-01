@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import vuetify from '@/plugins/vuetify'
 import store from './store'
+import 'animate.css/animate.min.css'
 
 Vue.config.productionTip = false
 

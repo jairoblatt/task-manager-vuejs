@@ -72,6 +72,7 @@ export default {
     },
 
     saveTask(){
+      
     const item = this.tasks[this.tasks.length -1]
     const lastItem = {}
     
@@ -102,16 +103,15 @@ export default {
         x:lastItem.x,
         i:lastItem.i
       }
-     
-      console.log(form)
       this.$store.commit('task/saveTask', form)
+      this.$store.dispatch('task/getTask')
      }
   },
   
   computed: mapGetters({ 
 
    dialog: "modal/getDialog",
-   tasks:"task/getTask" 
+   tasks: "task/getTask" 
 
    })
   

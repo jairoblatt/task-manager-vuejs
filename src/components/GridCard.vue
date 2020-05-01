@@ -1,4 +1,5 @@
 <template>
+
   <grid-layout
     :layout.sync="layout"
     :col-num="12"
@@ -19,19 +20,17 @@
         :h="2"
         :i="item.i"
         :key="item.id"
+       @moved="movedEvent"
       >
 
         <console 
-        :active="true" 
+        :active="IsConsole" 
         :x="item.x" 
         :y="item.y" 
         :i="item.i"
         />
-
-          <card-content 
-            :title="item.title"
-            :description="item.description"
-          />
+ 
+          <card-content :item="item"/>
 
     </grid-item>
   </grid-layout>
@@ -44,11 +43,24 @@ import Console from "@/components/Console"
 import CardContent from '@/components/CardContent'
 export default {
   name: "CardTask",
+  data:()=>{
+    return {
+      IsConsole:false
+    }
+  },
   components: {
     CardContent,
     Console,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
+  },
+  methods:{
+     movedEvent: function(i, newX, newY){
+        const updatePosition = this.layout.find( itens => itens.i === i)
+        updatePosition.x = newX
+        updatePosition.y = newY
+        this.$store.commit('task/saveTask',updatePosition)
+    },
   },
   computed: mapGetters({ layout: "task/getTask" })
 };

@@ -1,26 +1,43 @@
 <template>
-  <v-card>
-    <v-spacer></v-spacer>
-    <v-btn absolute right icon @click="deleteTask(item)">
-      <v-icon>mdi-close</v-icon>
-    </v-btn>
-    <v-card-title>{{title}}</v-card-title>
-    <v-card-text>{{description}}</v-card-text>
-    <v-card-actions>
+  <span>
+    <v-card class="animated fadeIn faster">
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-pen</v-icon>
+      <v-btn absolute right icon @click="confirmDialog = !confirmDialog">
+        <v-icon>mdi-close</v-icon>
       </v-btn>
-    </v-card-actions>
-  </v-card>
+      <v-card-title>{{item.title}}</v-card-title>
+      <v-card-text>{{item.description}}</v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn icon @click="updateTask(item)">
+          <v-icon>mdi-pen</v-icon>
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+    <ConfirmDelete 
+      :dialog="this.confirmDialog" 
+      :item="item" 
+    />
+  </span>
 </template>
 <script>
+import ConfirmDelete from "./ConfirmDeleteDialog";
 export default {
   name: "CardContent",
-  props:['title','description'],
+  components: {
+    ConfirmDelete
+  },
+  data: () => {
+    return {
+      confirmDialog:false
+    };
+  },
+  props: ["item"],
   methods: {
-    deleteTask(data){
-      this.$store.commit('task/deleteTask', data)
+    updateTask(data) {
+      this.$store.dispatch("task/setTaskUpdate", data);
+
+      this.$store.commit("modal/setUpdateTaskForm", true);
     }
   }
 };
