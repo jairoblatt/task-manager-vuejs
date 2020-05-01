@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import MainTemplate from './page/Main'
+import MainTemplate from './layout/Main'
   export default {
       name:'App',
       data:()=>{

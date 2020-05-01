@@ -2,8 +2,8 @@
 
   <grid-layout
     :layout.sync="layout"
-    :col-num="12"
-    :row-height="80"
+    :col-num="11"
+    :row-height="30"
     :is-draggable="true"
     :is-resizable="false"
     :is-mirrored="false"
@@ -30,17 +30,19 @@
         :i="item.i"
         />
  
-          <card-content :item="item"/>
+          <card-content 
+          :item="item"
+          />
 
-    </grid-item>
+      </grid-item>
   </grid-layout>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import VueGridLayout from "vue-grid-layout";
-import Console from "@/components/Console"
-import CardContent from '@/components/CardContent'
+import Console from "./console"
+import CardContent from './CardContent'
 export default {
   name: "CardTask",
   data:()=>{

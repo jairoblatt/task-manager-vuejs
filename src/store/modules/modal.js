@@ -18,11 +18,11 @@ export const getters = {
 
 export const mutations = {
     
-    setDialog (state,payload){
-        state.createTaskForm = payload
+    createTaskForm (state,payload){
+        return state.createTaskForm = payload
     },
 
-    setUpdateTaskForm (state, payload){
+    updateTaskForm (state, payload){
         return state.updateTaskForm = payload
     }
 

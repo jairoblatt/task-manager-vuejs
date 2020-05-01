@@ -11,6 +11,7 @@
           <v-btn
             v-model="fab"
             color="#651FFF"
+            large
             dark
             fab
           >
@@ -21,7 +22,6 @@
         <v-btn
           fab
           dark
-          small
           color="green"
         >
           <v-icon>mdi-view-list</v-icon>
@@ -29,7 +29,6 @@
         <v-btn
           fab
           dark
-          small
           color="indigo"
           @click="openModal"
         >
@@ -45,12 +44,13 @@ export default {
     return {
       createTaskForm:true,
       transition: 'slide-y-reverse-transition',
+      fab:''
     }
   },
   methods:{
     openModal(){
       this.createTaskForm = true
-      this.$store.commit('modal/setDialog', this.createTaskForm )
+      this.$store.commit('modal/createTaskForm', this.createTaskForm )
     }
   }
 };
