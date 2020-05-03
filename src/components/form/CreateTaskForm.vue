@@ -89,7 +89,6 @@ export default {
         description: this.description,
         level:this.color
       };
-      console.log(form, this.title.length)
       this.$store.commit("task/saveTask", form);
       this.$store.dispatch("task/getTask");
       this.title = ''

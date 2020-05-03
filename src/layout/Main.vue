@@ -21,6 +21,7 @@ import BtnCreate from "@/components/BtnCreate";
 import GridCard from "@/components/card/GridCard";
 import CreateTaskForm from "@/components/form/CreateTaskForm";
 import UpdateTaskForm from "@/components/form/UpdateTask";
+import { mapGetters } from 'vuex'
 // import NavBar from "@/components/navbar/NavBar";
 export default {
   name: "Main",

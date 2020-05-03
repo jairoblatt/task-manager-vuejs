@@ -10,6 +10,7 @@
     :vertical-compact="true"
     :margin="[10, 10]"
     :use-css-transforms="true"
+    @click="closeSubMenu()"
   >
 
       <grid-item
@@ -63,6 +64,9 @@ export default {
         updatePosition.y = newY
         this.$store.commit('task/saveTask',updatePosition)
     },
+    closeSubMenu(){
+     this.$store.commit('modal/subMenuTask', false)
+    }
   },
   computed: mapGetters({ layout: "task/getTask" })
 };

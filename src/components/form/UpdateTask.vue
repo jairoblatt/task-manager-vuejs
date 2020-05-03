@@ -1,9 +1,16 @@
 <template>
   <v-dialog v-model="modalUpdate" max-width="600px">
     <v-card outlined>
+      
       <v-card-title>
-        <v-spacer></v-spacer>
-        <v-btn icon @click="closeModal">
+         <v-chip
+        class="ma-2"
+        :color="taskUpdate.level"
+        label
+        text-color="white"
+      >
+      </v-chip>
+        <v-btn class="mt-2" icon right absolute @click="closeModal">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
@@ -11,33 +18,16 @@
         <v-container>
           <v-row>
             <v-col cols="12" sm="12" md="12">
-              <v-form ref="form">
-                <v-text-field color="#651FFF" v-model="taskUpdate.title" label="Title"></v-text-field>
-                <v-textarea
-                  color="#651FFF"
-                  name="input-7-4"
-                  v-model="taskUpdate.description"
-                  label="Description"
-                ></v-textarea>
-              </v-form>
+                <v-card-title class="font-weight-bold">{{ taskUpdate.title }}</v-card-title>
+                <v-card-text class="font-weight-medium">{{ taskUpdate.description }}</v-card-text>
             </v-col>
           </v-row>
         </v-container>
       </v-card-text>
-      <v-col cols="8">
-        <v-card-text>
-          <v-label lass="headline">Priority level:</v-label>
-          <v-slider v-model="level" :color="color" always-dirty="2" min="1" max="100">
-            <template
-              v-slot:thumb-label="{ value }"
-            >{{ satisfactionEmojis[Math.min(Math.floor(value / 9), 9)] }}</template>
-          </v-slider>
-        </v-card-text>
-      </v-col>
-      <v-card-actions>
+      <!-- <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="#651FFF" text @click="saveUpdate(taskUpdate)">Save</v-btn>
-      </v-card-actions>
+      </v-card-actions> -->
     </v-card>
   </v-dialog>
 </template>
@@ -93,7 +83,7 @@ export default {
       return "red accent-3";
     },
     ...mapGetters({
-       modalUpdate: "modal/getUpdateDialog",
+    modalUpdate: "modal/getUpdateDialog",
     taskUpdate: "task/getTaskUpdate"
     })
   }
