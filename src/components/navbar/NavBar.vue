@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer class="deep-purple accent-4" dark permanent>
+  <v-navigation-drawer class="deep-purple accent-4 mx-auto" dark permanent>
     <nav-bar-list/>
     <template v-slot:append>
       <div class="pa-2">

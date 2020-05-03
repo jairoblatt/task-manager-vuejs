@@ -16,30 +16,28 @@
           <v-row>
             <v-col cols="12" sm="12" md="12">
               <v-form ref="form">
-                <v-text-field v-model="title" color="#651FFF" label="Title"></v-text-field>
+                <v-text-field v-model="title" :rules="rules" :color="color" label="Title"></v-text-field>
 
-                <v-textarea v-if="title" v-model="description" color="#651FFF" label="Description"></v-textarea>
+                <v-textarea v-if="title" v-model="description" :color="color" label="Description"></v-textarea>
               </v-form>
             </v-col>
           </v-row>
         </v-container>
       </v-card-text>
-
-      <v-card-text>
-        <v-chip-group active-class="deep-purple accent-4 white--text" column v-show="title">
-          <v-chip>Group 1</v-chip>
-
-          <v-chip>Group 2</v-chip>
-
-          <v-chip>Group 3</v-chip>
-
-          <v-chip>Group 4</v-chip>
-        </v-chip-group>
-      </v-card-text>
+      <v-col cols="8">
+        <v-card-text>
+          <v-label lass="headline">Priority level:</v-label>
+          <v-slider v-model="level" :color="color" always-dirty="2" min="1" max="100">
+            <template
+              v-slot:thumb-label="{ value }"
+            >{{ satisfactionEmojis[Math.min(Math.floor(value / 9), 9)] }}</template>
+          </v-slider>
+        </v-card-text>
+      </v-col>
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="#651FFF" v-show="title" class="white--text" @click="saveTask">
+        <v-btn :color="color" v-show="validInput" class="white--text" @click="saveTask">
           <v-icon>mdi-plus</v-icon>Save
         </v-btn>
       </v-card-actions>
@@ -49,20 +47,28 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import { gridHeigh,gridStartPosition } from '@/util/validate'
 export default {
   name: "FormTaskCreate",
-
   data: () => {
     return {
-      maxTitle: 80,
-      maxDescription: 200,
-
-      rules: "",
+      level: 0,
+      satisfactionEmojis: [
+        "😍",
+        "😁",
+        "😬",
+        "😐",
+        "😶",
+        "😮",
+        "😲",
+        "😨",
+        "😱",
+        "🔥"
+      ],
       allowSpaces: false,
       chip: true,
-
       title: "",
+      rules: [v => v.length <= 200 || 'Max 200 characters'],
       description: ""
     };
   },
@@ -76,42 +82,40 @@ export default {
     },
 
     saveTask() {
-      const item = this.tasks[this.tasks.length - 1];
-      const lastItem = {};
-
-      if (item != undefined) {
-        (lastItem.i = item.i), (lastItem.x = item.x), (lastItem.y = item.y);
-        if (lastItem.x >= 8) {
-          lastItem.x = 0;
-          lastItem.y++;
-          lastItem.i++;
-        } else {
-          lastItem.x = lastItem.x + 2;
-          lastItem.i++;
-        }
-      } else {
-        lastItem.i = 0;
-        lastItem.x = 0;
-        lastItem.y = 0;
-      }
-
       const form = {
+        ...gridHeigh(this.title),
+        ...gridStartPosition(this.tasks),
         title: this.title,
         description: this.description,
-        w: 2,
-        h: 2,
-        y: lastItem.y,
-        x: lastItem.x,
-        i: lastItem.i
+        level:this.color
       };
+      console.log(form, this.title.length)
       this.$store.commit("task/saveTask", form);
       this.$store.dispatch("task/getTask");
-    }
-  },
+      this.title = ''
+      this.description = ''
+      this.level = 0
+     }
 
-  computed: mapGetters({
-    dialog: "modal/getDialog",
-    tasks: "task/getTask"
-  })
+  },
+  computed: {
+    color() {
+      if (this.level < 25) return "deep-purple accent-3";
+      if (this.level < 50) return "light-blue ";
+      if (this.level < 75) return "lime";
+      if (this.level < 110) return "red accent-3";
+      return "red accent-3";
+    },
+    validInput(){
+        if(this.title.length > 200){
+          return false
+        }
+        return true
+    },
+    ...mapGetters({
+      dialog: "modal/getDialog",
+      tasks: "task/getTask"
+    }),
+  }
 };
 </script>

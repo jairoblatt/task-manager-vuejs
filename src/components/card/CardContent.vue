@@ -1,11 +1,11 @@
 <template>
   <span>
     <v-card class="animated fadeIn faster">
+      <v-card-title :class="item.level" ></v-card-title>
       <template>
-        <v-spacer></v-spacer>
-        <v-menu  right absolute>
+        <v-menu  right  absolute>
           <template v-slot:activator="{ on }">
-            <v-btn dark icon v-on="on" absolute right class="grey--text">
+            <v-btn dark icon v-on="on"  absolute right class="grey--text pb-4">
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </template>
@@ -25,12 +25,13 @@
           <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
         </v-btn>
       </v-card-title>
-
+      
       <v-expand-transition>
-        <div v-show="show">
+        <div v-show="show" class="test">
           <v-card-text>{{item.description}}</v-card-text>
         </div>
       </v-expand-transition>
+
     </v-card>
     <ConfirmDelete :dialog="this.confirmDialog" :item="item" />
   </span>
@@ -57,3 +58,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.test{
+  position: static!important;
+}
+</style>

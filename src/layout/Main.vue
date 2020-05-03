@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
-    <v-navigation-drawer app>
+    <!-- <v-navigation-drawer app>
           <nav-bar/>
-   </v-navigation-drawer>
+   </v-navigation-drawer> -->
     <v-row>
       <v-col cols="12" md="12">
         <v-content>
@@ -21,7 +21,7 @@ import BtnCreate from "@/components/BtnCreate";
 import GridCard from "@/components/card/GridCard";
 import CreateTaskForm from "@/components/form/CreateTaskForm";
 import UpdateTaskForm from "@/components/form/UpdateTask";
-import NavBar from "@/components/navbar/NavBar";
+// import NavBar from "@/components/navbar/NavBar";
 export default {
   name: "Main",
   components: {
@@ -29,7 +29,7 @@ export default {
     BtnCreate,
     GridCard,
     UpdateTaskForm,
-    NavBar
+    // NavBar
   },
   created() {
     this.$store.dispatch("task/getTask");
