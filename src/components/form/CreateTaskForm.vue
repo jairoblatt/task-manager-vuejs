@@ -73,6 +73,7 @@ export default {
     };
   },
   methods: {
+    
     validateField() {
       this.$refs.form.validate();
     },
@@ -87,7 +88,7 @@ export default {
         ...gridStartPosition(this.tasks),
         title: this.title,
         description: this.description,
-        level:this.color
+        level:this.level
       };
       this.$store.commit("task/saveTask", form);
       this.$store.dispatch("task/getTask");

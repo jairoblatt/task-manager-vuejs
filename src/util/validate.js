@@ -36,6 +36,22 @@ const verifyHeight = (count) => {
         return lastItem
     }
 
+  
+  class Color{
+
+      validate(level){
+        if (level < 25) return "deep-purple accent-3";
+        if (level < 50) return "light-blue ";
+        if (level < 75) return "lime";
+        if (level < 110) return "red accent-3";
+        return "red accent-3";
+      }
+
+    }
+
+export default new Color
+
+
 
 
 

@@ -2,7 +2,7 @@ import Op from '@/util/op'
 
 export const state = {
     tasks:[],
-    taskUpdate:''
+    taskUpdate:'',
 }
 
 
@@ -10,7 +10,7 @@ export const state = {
 export const getters = {
 
     getTask: state => state.tasks,
-    getTaskUpdate: state => state.taskUpdate
+    getTaskUpdate: state => state.taskUpdate,
 }
 
 
@@ -29,7 +29,8 @@ export const mutations = {
 
     setTaskUpdate(state,payload){
         return state.taskUpdate = payload
-    }
+    },
+
 
 }
 

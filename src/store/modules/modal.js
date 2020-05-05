@@ -1,8 +1,9 @@
 export const state = {
 
-    createTaskForm:false,
-    updateTaskForm:false,
-    subMenuTask:''
+    createTaskForm:'',
+    viewTask:'',
+    updateTask:'',
+    confirmDelete:''
 
 }
 
@@ -11,8 +12,9 @@ export const state = {
 export const getters = {
 
     getDialog: state => state.createTaskForm,
-    getUpdateDialog: state => state.updateTaskForm,
-    getsubMenuTask: state => state.subMenuTask
+    getViewTask: state => state.viewTask,
+    getUpdateTask: state => state.updateTask,
+    getConfirmDelete: state => state.confirmDelete
 }
 
 
@@ -23,12 +25,14 @@ export const mutations = {
         return state.createTaskForm = payload
     },
 
-    updateTaskForm (state, payload){
-        return state.updateTaskForm = payload
+    viewTask (state, payload){
+        return state.viewTask = payload
     },
-
-    subMenuTask (state,payload){
-        return state.subMenuTask = payload
+    updateTask (state, payload){
+        return state.updateTask = payload
     },
+    confirmDelete(state,payload) {
+        return state.confirmDelete = payload
+    }
 
 }

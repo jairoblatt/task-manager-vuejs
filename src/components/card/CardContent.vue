@@ -3,32 +3,16 @@
     <v-card 
       class="animated fadeIn faster"
     >
-      <v-card-title :class="item.level"></v-card-title>
-      <v-btn icon  right absolute > <v-icon @click="openSubMenu()">mdi-pen</v-icon></v-btn >
+      <v-card-title :class="color"></v-card-title>
+        <v-btn icon  right absolute > <v-icon @click="openUpdateTask(item)" >mdi-pen</v-icon></v-btn >
       <v-card-title 
         class="mouse-pointer" 
         v-show="!subMenu" 
-        @click="openUdateTaskForm(item)"
+        @click="openViewTask(item)"
       >
         {{item.title}}
       </v-card-title>
-      <v-textarea
-        v-if="subMenu"
-        auto-grow
-        outlined
-        :color="item.level"
-        :rows="item.h"
-        row-height="15"
-        v-model="item.title"
-      ></v-textarea>
     </v-card>
-    <v-card-actions v-if="subMenu">
-      <v-spacer></v-spacer>
-      <v-btn :color="item.level" class="white--text" outlined @click="updateTask(item)">Save</v-btn>
-      <v-btn color="grey" class="white--text" @click="confirmDialog = !confirmDialog" outlined>
-        <v-icon>mdi-delete</v-icon>
-      </v-btn>
-    </v-card-actions>
     <ConfirmDelete :dialog="this.confirmDialog" :item="item" />
   </span>
 </template>
@@ -46,31 +30,28 @@ export default {
       confirmDialog: false,
     };
   },
-  props: ["item"],
+  props: [ "item" ],
   methods: {
-    updateTask(data) {
-      const form = {
-        title:data.title,
-        ...gridHeigh(data.title)
-      }
-      this.$store.commit("task/saveTask", form);
-      this.$store.commit("modal/subMenuTask", false);
+
+    openViewTask(data){
+      this.$store.dispatch("task/setTaskUpdate", data);
+      this.$store.commit("modal/viewTask", true);
     },
 
-    openSubMenu() {
-      if (!this.subMenu) {
-        this.$store.commit("modal/subMenuTask", true);
-      }
-    },
-    openUdateTaskForm(data){
+    openUpdateTask(data){
       this.$store.dispatch("task/setTaskUpdate", data);
-      this.$store.commit("modal/updateTaskForm", true);
+      this.$store.commit("modal/updateTask", true)
     }
+
   },
   computed: {
-    ...mapGetters({
-      subMenu: "modal/getsubMenuTask"
-    })
+    color(){
+      if (this.item.level < 25) return "deep-purple accent-3";
+      if (this.item.level < 50) return "light-blue ";
+      if (this.item.level < 75) return "lime";
+      if (this.item.level < 110) return "red accent-3";
+      return "red accent-3";
+    }
   }
 };
 </script>

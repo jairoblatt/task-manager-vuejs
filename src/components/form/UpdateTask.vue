@@ -1,44 +1,64 @@
 <template>
-  <v-dialog v-model="modalUpdate" max-width="600px">
-    <v-card outlined>
-      
-      <v-card-title>
-         <v-chip
-        class="ma-2"
-        :color="taskUpdate.level"
-        label
-        text-color="white"
-      >
-      </v-chip>
-        <v-btn class="mt-2" icon right absolute @click="closeModal">
-          <v-icon>mdi-close</v-icon>
+  <v-dialog v-model="updateModal" max-width="600px">
+      <v-card outlined>
+        <v-card-title>
+          <v-chip class="ma-2" :color="colorValidate" label text-color="white"></v-chip>
+          <v-btn class="mt-2" icon right absolute @click="closeModal">
+            <v-icon :color="colorValidate">mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="12" md="12">
+                <v-text-field class="font-weight-bold" :color="colorValidate" v-model="task.title" />
+                <v-textarea
+                  class="font-weight-medium"
+                  :color="colorValidate"
+                  v-model="task.description"
+                />
+              </v-col>
+            </v-row>
+          </v-container>
+          <v-col cols="8">
+            <v-card-text>
+              <v-label lass="headline">Priority level:</v-label>
+              <v-slider
+                v-model="task.level"
+                :color="colorValidate"
+                always-dirty="2"
+                min="1"
+                max="100"
+              >
+                <template
+                  v-slot:thumb-label="{ value }"
+                >{{ satisfactionEmojis[Math.min(Math.floor(value / 9), 9)] }}</template>
+              </v-slider>
+            </v-card-text>
+          </v-col>
+        </v-card-text>
+      <v-card-actions>
+           <v-spacer></v-spacer>
+        <v-btn right :color="colorValidate" v-show="task.title" class="white--text">
+          <v-icon>mdi-plus</v-icon>Save
         </v-btn>
-      </v-card-title>
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col cols="12" sm="12" md="12">
-                <v-card-title class="font-weight-bold">{{ taskUpdate.title }}</v-card-title>
-                <v-card-text class="font-weight-medium">{{ taskUpdate.description }}</v-card-text>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-      <!-- <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="#651FFF" text @click="saveUpdate(taskUpdate)">Save</v-btn>
-      </v-card-actions> -->
-    </v-card>
+          <v-btn icon right color="grey"  v-show="task.title" @click="confirmDelete()">
+            <v-icon>mdi-delete</v-icon>
+        </v-btn>
+      </v-card-actions>
+      </v-card>
   </v-dialog>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+
+// import Color from '@/util/validate';
 export default {
   name: "UpdateTask",
-  data:()=>{
+  data: () => {
     return {
-      level: 0,
+      confirmDialog:false,
       satisfactionEmojis: [
         "😍",
         "😁",
@@ -50,17 +70,16 @@ export default {
         "😨",
         "😱",
         "🔥"
-      ],
-    }
+      ]
+    };
   },
   methods: {
-
     saveUpdate(data) {
-      const form ={
+      const form = {
         title: data.title,
-        description:data.description,
-        level:this.color
-      }
+        description: data.description,
+        level: this.color
+      };
       if (form.title || form.description) {
         this.$store.commit("task/saveTask", data);
         this.$store.commit("modal/updateTaskForm", false);
@@ -69,27 +88,26 @@ export default {
       }
     },
 
-    closeModal(){ 
-      this.$store.commit("modal/updateTaskForm", false) 
-      }
+    closeModal() {
+      this.$store.commit("modal/updateTask", false);
+    },
 
+    confirmDelete() {
+      this.$store.commit('modal/confirmDelete', true)
+    }
   },
-  computed:{
-       color() {
-      if (this.level < 25) return "deep-purple accent-3";
-      if (this.level < 50) return "light-blue ";
-      if (this.level < 75) return "lime";
-      if (this.level < 110) return "red accent-3";
+  computed: {
+    colorValidate() {
+      if (this.task.level < 25) return "deep-purple accent-3";
+      if (this.task.level < 50) return "light-blue ";
+      if (this.task.level < 75) return "lime";
+      if (this.task.level < 110) return "red accent-3";
       return "red accent-3";
     },
     ...mapGetters({
-    modalUpdate: "modal/getUpdateDialog",
-    taskUpdate: "task/getTaskUpdate"
+      updateModal: "modal/getUpdateTask",
+      task: "task/getTaskUpdate"
     })
   }
-
 };
 </script>
-
-<style>
-</style>

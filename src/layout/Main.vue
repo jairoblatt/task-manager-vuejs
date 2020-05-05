@@ -8,7 +8,9 @@
         <v-content>
           <btn-create />
           <create-task-form />
-          <update-task-form />
+          <View-task-form />
+          <update-task-form/>
+          <confirm-delete/>
           <grid-card />
         </v-content>
       </v-col>
@@ -20,7 +22,9 @@
 import BtnCreate from "@/components/BtnCreate";
 import GridCard from "@/components/card/GridCard";
 import CreateTaskForm from "@/components/form/CreateTaskForm";
-import UpdateTaskForm from "@/components/form/UpdateTask";
+import ViewTaskForm from "@/components/form/ViewTask";
+import UpdateTaskForm from '@/components/form/UpdateTask'
+import ConfirmDelete from '@/components/card/ConfirmDeleteDialog'
 import { mapGetters } from 'vuex'
 // import NavBar from "@/components/navbar/NavBar";
 export default {
@@ -29,8 +33,9 @@ export default {
     CreateTaskForm,
     BtnCreate,
     GridCard,
+    ViewTaskForm,
     UpdateTaskForm,
-    // NavBar
+    ConfirmDelete
   },
   created() {
     this.$store.dispatch("task/getTask");
