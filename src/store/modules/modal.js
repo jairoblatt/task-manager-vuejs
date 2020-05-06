@@ -3,7 +3,7 @@ export const state = {
     createTaskForm:'',
     viewTask:'',
     updateTask:'',
-    confirmDelete:''
+    confirmDialog:''
 
 }
 
@@ -14,7 +14,7 @@ export const getters = {
     getDialog: state => state.createTaskForm,
     getViewTask: state => state.viewTask,
     getUpdateTask: state => state.updateTask,
-    getConfirmDelete: state => state.confirmDelete
+    getConfirmDialog: state => state.confirmDialog
 }
 
 
@@ -31,8 +31,8 @@ export const mutations = {
     updateTask (state, payload){
         return state.updateTask = payload
     },
-    confirmDelete(state,payload) {
-        return state.confirmDelete = payload
+    confirmDialog(state,payload) {
+        return state.confirmDialog = payload
     }
 
 }

@@ -10,7 +10,7 @@ const verifyHeight = (count) => {
     
    export const  gridHeigh = (data) => {
         let h = verifyHeight(data.length)
-        return { h:h, w:2 }
+        return h
     }
 
     export const gridStartPosition = (data) => {

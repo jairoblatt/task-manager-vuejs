@@ -2,34 +2,24 @@
   <span >
     <v-card 
       class="animated fadeIn faster"
+      v-if="item.title"
     >
       <v-card-title :class="color"></v-card-title>
         <v-btn icon  right absolute > <v-icon @click="openUpdateTask(item)" >mdi-pen</v-icon></v-btn >
       <v-card-title 
         class="mouse-pointer" 
-        v-show="!subMenu" 
         @click="openViewTask(item)"
       >
         {{item.title}}
       </v-card-title>
     </v-card>
-    <ConfirmDelete :dialog="this.confirmDialog" :item="item" />
   </span>
 </template>
 <script>
-import ConfirmDelete from "./ConfirmDeleteDialog";
 import { mapGetters } from "vuex";
 import { gridHeigh } from '@/util/validate'
 export default {
   name: "CardContent",
-  components: {
-    ConfirmDelete
-  },
-  data: () => {
-    return {
-      confirmDialog: false,
-    };
-  },
   props: [ "item" ],
   methods: {
 

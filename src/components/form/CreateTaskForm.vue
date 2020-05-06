@@ -84,12 +84,14 @@ export default {
 
     saveTask() {
       const form = {
-        ...gridHeigh(this.title),
         ...gridStartPosition(this.tasks),
+        w:2,
         title: this.title,
         description: this.description,
         level:this.level
       };
+      form.h = gridHeigh(this.title),
+
       this.$store.commit("task/saveTask", form);
       this.$store.dispatch("task/getTask");
       this.title = ''
