@@ -1,8 +1,5 @@
 <template>
   <v-container fluid>
-    <!-- <v-navigation-drawer app>
-          <nav-bar/>
-   </v-navigation-drawer> -->
     <v-row>
       <v-col cols="12" md="12">
         <v-content>
@@ -11,6 +8,7 @@
           <View-task-form />
           <update-task-form/>
           <grid-card />
+          <confirm-dialog/>
         </v-content>
       </v-col>
     </v-row>
@@ -24,7 +22,7 @@ import CreateTaskForm from "@/components/form/CreateTaskForm";
 import ViewTaskForm from "@/components/form/ViewTask";
 import UpdateTaskForm from '@/components/form/UpdateTask'
 import { mapGetters } from 'vuex'
-// import NavBar from "@/components/navbar/NavBar";
+import ConfirmDialog from '@/components/card/ConfirmDialog'
 export default {
   name: "Main",
   components: {
@@ -32,7 +30,8 @@ export default {
     BtnCreate,
     GridCard,
     ViewTaskForm,
-    UpdateTaskForm
+    UpdateTaskForm,
+    ConfirmDialog
   },
   created() {
     this.$store.dispatch("task/getTask");

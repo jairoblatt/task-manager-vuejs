@@ -8,11 +8,6 @@
 import MainTemplate from './layout/Main'
   export default {
       name:'App',
-      data:()=>{
-        return {
-            test:''
-        }
-      },
       components:{
         MainTemplate
       }

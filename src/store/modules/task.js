@@ -46,7 +46,7 @@ export const actions = {
             listTask.forEach(element => {
                 context.state.tasks.push(element)
             });
-    }
+    },
   
 
 }

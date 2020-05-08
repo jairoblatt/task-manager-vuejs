@@ -40,30 +40,28 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn right :color="colorValidate" v-show="task.title" @click="update(task)" class="white--text">
+        <v-btn
+          right
+          :color="colorValidate"
+          v-show="task.title"
+          @click="update(task)"
+          class="white--text"
+        >
           <v-icon>mdi-plus</v-icon>Save
         </v-btn>
         <v-btn icon right color="grey" v-show="task.title" @click="confirmDelete">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </v-card-actions>
-      <confirm-dialog
-        title="Do you want to delete this task?"
-        description="This action cannot be undone"
-      />
     </v-card>
   </v-dialog>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import { gridHeigh } from '@/util/validate'
-import ConfirmDialog from '@/components/card/ConfirmDialog'
+import { gridHeigh } from "@/util/validate";
 export default {
   name: "UpdateTask",
-  components:{
-    ConfirmDialog,
-  },
   data: () => {
     return {
       confirmDialog: false,
@@ -83,20 +81,34 @@ export default {
   },
   methods: {
     update(data) {
-       if (data.title){
-        data.h = gridHeigh(data.title)
-        this.$store.commit('task/saveTask',data)
-        this.$store.commit('modal/updateTask', false)
+      if (data.title) {
+        data.h = gridHeigh(data.title);
+        this.$store.commit("task/saveTask", data);
+        this.$store.commit("modal/updateTask", false);
       }
     },
 
     closeModal() {
-      this.$store.commit("modal/updateTask", false);
-      this.task.title.length == 0 ? this.confirmDelete() : ''
+      // this.$store.commit("modal/updateTask", false);
+      // this.task.title.length == 0 ? this.confirmDelete() : "";
+      this.confirmUpdate()
     },
-
+    confirmUpdate(){
+      const recoveryTask = this.allTask.find( e => e.id === this.task.id )
+      console.log( this.allTask)
+      // if(recoveryTask.title === this.task.title){
+      //   this.$store.commit("modal/updateTask", false);
+      // }else{
+      //   console.log('o titulo está diferente')
+      // }
+    },
     confirmDelete() {
-      this.$store.commit("modal/confirmDialog",true)
+      this.$store.commit("modal/confirmDialog", {
+        active: true,
+        name: "UpdateTask",
+        title: "Do you want to delete this task?",
+        description: "This action cannot be undone"
+      });
     }
   },
   computed: {
@@ -110,6 +122,7 @@ export default {
     ...mapGetters({
       updateModal: "modal/getUpdateTask",
       task: "task/getTaskUpdate",
+      allTask:'task/getTask'
     })
   }
 };

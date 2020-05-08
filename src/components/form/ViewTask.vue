@@ -23,28 +23,25 @@
         </v-btn>
       </v-card-actions>
       </v-card-text>
-      <confirm-dialog
-        title="Do you want to delete this task?"
-        description="This action cannot be undone"
-       />
     </v-card>
   </v-dialog>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import ConfirmDialog from '@/components/card/ConfirmDialog'
 export default {
   name: "UpdateTask",
-  components:{
-    ConfirmDialog
-  },
   methods: {
     closeModal() {
       this.$store.commit("modal/viewTask", false);
     },
     confirmDelete() {
-      this.$store.commit("modal/confirmDialog",true)
+      this.$store.commit("modal/confirmDialog",{
+        active:true,
+        name:'ViewTask',
+        title:"Do you want to delete this task?",
+        description:"This action cannot be undone"
+      })
     }
   },
   computed: {
