@@ -3,9 +3,10 @@
     <v-card 
       class="animated fadeIn faster"
       v-if="item.title"
+      outlined
     >
       <v-card-title :class="color"></v-card-title>
-        <v-btn icon  right absolute > <v-icon @click="openUpdateTask(item)" >mdi-pen</v-icon></v-btn >
+        <v-btn icon  right absolute > <v-icon @click="openUpdateTask(item)" >mdi-pen</v-icon></v-btn>
       <v-card-title 
         class="mouse-pointer" 
         @click="openViewTask(item)"

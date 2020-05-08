@@ -64,7 +64,6 @@ export default {
   name: "UpdateTask",
   data: () => {
     return {
-      confirmDialog: false,
       satisfactionEmojis: [
         "😍",
         "😁",
@@ -89,25 +88,48 @@ export default {
     },
 
     closeModal() {
-      // this.$store.commit("modal/updateTask", false);
-      // this.task.title.length == 0 ? this.confirmDelete() : "";
-      this.confirmUpdate()
+      this.task.title.length == 0 ? this.confirmDelete() : "";
+      this.confirmUpdate();
     },
-    confirmUpdate(){
-      const recoveryTask = this.allTask.find( e => e.id === this.task.id )
-      console.log( this.allTask)
-      // if(recoveryTask.title === this.task.title){
-      //   this.$store.commit("modal/updateTask", false);
-      // }else{
-      //   console.log('o titulo está diferente')
-      // }
+
+    confirmUpdate() {
+      if (this.taskCopy.title != this.task.title) {
+        this.$store.commit("modal/confirmDialog", {
+          active: true,
+          origin: "ConfirmUpdate",
+          info: {
+            title: "Do you want to save your changes?",
+          },
+          button: {
+            deny: "No",
+            confirm: "Save"
+          }
+        });
+        this.$store.commit("modal/updateTask", false);
+      }
     },
     confirmDelete() {
-      this.$store.commit("modal/confirmDialog", {
+      this.$store.commit("modal/confirmDialog",{
         active: true,
-        name: "UpdateTask",
-        title: "Do you want to delete this task?",
-        description: "This action cannot be undone"
+        origin: "ConfirmDelete",
+        info: {
+          title: "Do you want to delete this task?",
+          message: "This action cannot be undone"
+        },
+        button: {
+          deny:{
+            name:'No',
+            handler: function (){
+                return 'teste'
+            }
+          },
+          confirm:{
+            name:'Delete',
+            handler:function(){
+                return 'teste'
+            }
+          }
+        }
       });
     }
   },
@@ -122,7 +144,7 @@ export default {
     ...mapGetters({
       updateModal: "modal/getUpdateTask",
       task: "task/getTaskUpdate",
-      allTask:'task/getTask'
+      taskCopy: "task/getTaskUpdateCopy"
     })
   }
 };

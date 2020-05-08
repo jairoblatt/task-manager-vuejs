@@ -3,7 +3,7 @@ export const state = {
     createTaskForm:'',
     viewTask:'',
     updateTask:'',
-    confirmDialog:''
+    confirmDialog:{}
 
 }
 
@@ -36,3 +36,11 @@ export const mutations = {
     }
 
 }
+
+
+export const actions = {
+    disableConfirmDialog(context){
+        return state.confirmDialog.active = false
+    }
+}
+

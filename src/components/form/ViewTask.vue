@@ -12,12 +12,13 @@
           <v-row>
             <v-col cols="12" sm="12" md="12">
               <v-card-title class="font-weight-bold">{{ task.title }}</v-card-title>
-              <v-card-text class="font-weight-medium">{{ task.description }}</v-card-text>
+              <v-card-text class="font-weight-medium"> {{ task.description }}</v-card-text>
             </v-col>
           </v-row>
         </v-container>
           <v-card-actions>
         <v-spacer></v-spacer>
+        <v-btn icon right > <v-icon @click="openUpdateTask(task)">mdi-pen</v-icon></v-btn>
         <v-btn icon right color="grey" @click="confirmDelete()">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
@@ -42,6 +43,10 @@ export default {
         title:"Do you want to delete this task?",
         description:"This action cannot be undone"
       })
+    },
+    openUpdateTask(data){
+      this.$store.dispatch("task/setTaskUpdate", data);
+      this.$store.commit("modal/updateTask", true)
     }
   },
   computed: {
