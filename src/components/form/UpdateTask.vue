@@ -88,49 +88,43 @@ export default {
     },
 
     closeModal() {
-      this.task.title.length == 0 ? this.confirmDelete() : "";
-      this.confirmUpdate();
+      if (this.taskCopy.title != this.task.title) {
+        this.confirmUpdate();
+      }else if(this.task.title.length == 0){
+        this.confirmDelete()
+      }else{
+        this.$store.commit('modal/updateTask', false)
+      }
     },
 
     confirmUpdate() {
-      if (this.taskCopy.title != this.task.title) {
-        this.$store.commit("modal/confirmDialog", {
-          active: true,
-          origin: "ConfirmUpdate",
-          info: {
-            title: "Do you want to save your changes?",
-          },
-          button: {
-            deny: "No",
-            confirm: "Save"
-          }
-        });
-        this.$store.commit("modal/updateTask", false);
-      }
+      const set = {
+        active: true,
+        origin: "ConfirmUpdate",
+        info: {
+          title: "Do you want to save your changes?"
+        },
+        buttons: {
+          deny: "No",
+          confirm: "Save"
+        }
+      };
+        this.$store.commit("modal/confirmDialog",set);
     },
     confirmDelete() {
-      this.$store.commit("modal/confirmDialog",{
+      const set = {
         active: true,
         origin: "ConfirmDelete",
         info: {
-          title: "Do you want to delete this task?",
+          title: "Do you want to delete this task?", 
           message: "This action cannot be undone"
-        },
-        button: {
-          deny:{
-            name:'No',
-            handler: function (){
-                return 'teste'
-            }
           },
-          confirm:{
-            name:'Delete',
-            handler:function(){
-                return 'teste'
-            }
+        buttons: { 
+          deny: "no", 
+          confirm: "Delete" 
           }
-        }
-      });
+      };
+      this.$store.commit("modal/confirmDialog", set);
     }
   },
   computed: {
