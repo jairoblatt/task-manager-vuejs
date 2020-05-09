@@ -33,24 +33,24 @@ npm run lint
 ```
 
 
-#Result
-###Create a new task
+# Result
+### Create a new task
 ![](https://raw.githubusercontent.com/jairoblatt/task-manager-vuejs/master/static/show/ezgif.com-gif-maker.gif)
 
-###Moving
+### Moving
 ![](https://raw.githubusercontent.com/jairoblatt/task-manager-vuejs/master/static/show/moving.gif)
 
-###View and delete
+### View and delete
 ![](https://raw.githubusercontent.com/jairoblatt/task-manager-vuejs/master/static/show/TaskViewAndDelete.gif)
 
-###Update
+### Update
 ![](https://raw.githubusercontent.com/jairoblatt/task-manager-vuejs/master/static/show/update.gif)
 
-###Validating an update
+### Validating an update
 ![](https://raw.githubusercontent.com/jairoblatt/task-manager-vuejs/master/static/show/ValidateUpdate.gif)
 
-#Structure
-src
+# Structure
+src                     
 ├── components
 │   ├── card
 │   │   ├── CardContent
