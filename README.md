@@ -50,6 +50,7 @@ npm run lint
 ![](https://raw.githubusercontent.com/jairoblatt/task-manager-vuejs/master/static/show/ValidateUpdate.gif)
 
 # Structure
+```
 src                     
 ├── components
 │   ├── card
@@ -68,11 +69,12 @@ src
 |   └── vuetify.js
 ├── store
 |    ├── modules
-|     |   ├── modal.js
-|     |   └── task.js
+|    |   ├── modal.js
+|    |   └── task.js
 |    └── modules
 ├── util
 |    ├── op.js
 |    └── validate.js
 ├──App.vue
 └── main.js
+```
