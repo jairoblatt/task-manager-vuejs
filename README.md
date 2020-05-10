@@ -71,7 +71,7 @@ src
 |    ├── modules
 |    |   ├── modal.js
 |    |   └── task.js
-|    └── modules
+|    └── index.js
 ├── util
 |    ├── op.js
 |    └── validate.js
