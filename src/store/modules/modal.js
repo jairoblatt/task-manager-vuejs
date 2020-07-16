@@ -1,11 +1,11 @@
-export const state = {
+export const state = () => ({
 
-    createTaskForm:'',
-    viewTask:'',
-    updateTask:'',
-    confirmDialog:{}
+    createTaskForm: '',
+    viewTask: '',
+    updateTask: '',
+    confirmDialog: {}
 
-}
+})
 
 
 
@@ -20,18 +20,18 @@ export const getters = {
 
 
 export const mutations = {
-    
-    createTaskForm (state,payload){
+
+    createTaskForm(state, payload) {
         return state.createTaskForm = payload
     },
 
-    viewTask (state, payload){
+    viewTask(state, payload) {
         return state.viewTask = payload
     },
-    updateTask (state, payload){
+    updateTask(state, payload) {
         return state.updateTask = payload
     },
-    confirmDialog(state,payload) {
+    confirmDialog(state, payload) {
         return state.confirmDialog = payload
     }
 
@@ -39,7 +39,7 @@ export const mutations = {
 
 
 export const actions = {
-    disableConfirmDialog(context){
+    disableConfirmDialog(context) {
         return state.confirmDialog.active = false
     }
 }

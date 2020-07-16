@@ -1,10 +1,10 @@
 import Op from '@/util/op'
 
-export const state = {
+export const state = () =>({
     tasks: [],
     taskUpdate: '',
     taskUpdateCopy: ''
-}
+})
 
 
 
